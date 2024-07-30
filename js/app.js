@@ -1,7 +1,7 @@
 const video = document.querySelector('.video-background');
 const swiperText = new Swiper('.swiper', {
     speed: 1600,
-    mouseWheel: {},
+    mouseWheel: true,
     pagination: {
         el: '.swiper-pagination',
         clickable: true
@@ -12,15 +12,20 @@ const swiperText = new Swiper('.swiper', {
     }
 });
 
+
 swiperText.on('slideChange', function () {
-    gsap.to(video, 1.6, {
+    gsap.to(video, {
+        duration: 1.6,
         currentTime: (video.duration / (this.slides.length - 1)) * this.realIndex,
-        ease: Power2.easeOut
-    })
+        ease: "power2.out"
+    });
 });
+
+
 swiperText.on('slideChangeTransitionStart', function () {
-    video.classList.add('.change')
-        .on('slideChangeTransitionEnd', function () {
-            video.classList.remove('.change');
-        })
+    video.classList.add('change');
+});
+
+swiperText.on('slideChangeTransitionEnd', function () {
+    video.classList.remove('change');
 });
